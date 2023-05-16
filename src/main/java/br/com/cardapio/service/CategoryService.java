@@ -44,4 +44,28 @@ public class CategoryService {
         return repository.save(categoryData);
     }
 
+    //metodo para editar uma categoria
+    public Optional<Category> updateCategoryById(Long id, CategoryRequestDTO categoryEdit){
+        Optional<Category> categoryOptional = repository.findById(id);
+
+        if(categoryOptional.isEmpty()){
+            return Optional.empty();
+        }
+        Category category = categoryOptional.get();
+        category.setCategory(categoryEdit.category());
+        repository.save(category);
+        return Optional.of(category);
+    }
+
+    //metodo para excluir uma categoria
+    public Optional<String> deleteCategoryById(Long id){
+
+        if(!repository.existsById(id)){
+            return Optional.empty();
+        }
+        repository.deleteById(id);
+        return Optional.of("Categoria Excluída !");
+
+    }
+
 }

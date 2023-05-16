@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class Category {
     private String category;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "cdCategory")
+    @OneToMany(mappedBy = "cdCategory", cascade = CascadeType.ALL)
     public List<Food> foods = new ArrayList<>();
 
     public Category(CategoryRequestDTO data){

@@ -26,7 +26,13 @@ public class FoodService {
 
     //metodo para retornar uma comida pelo id
     public Optional<Food> getFoodById(Long id) throws RuntimeException {
-        return repository.findById(id);
+
+        Optional<Food> food = repository.findById(id);
+
+        if(food.isEmpty()) {
+            return food;
+        }
+        return food;
     }
 
     //metodo para salvar uma comida
@@ -36,12 +42,15 @@ public class FoodService {
     }
 
     //metodo para deletar uma comida
-    public Boolean deleteFoodById(Long foodId) {
-        if (!repository.existsById(foodId)) {
-            return false;
+    public Optional<String> deleteFoodById(Long foodId) {
+
+        Optional<Food> food = repository.findById(foodId);
+
+        if(food.isEmpty()){
+            return Optional.empty();
         } else {
             repository.deleteById(foodId);
-            return true;
+            return Optional.of("Excluído com sucesso");
         }
     }
 

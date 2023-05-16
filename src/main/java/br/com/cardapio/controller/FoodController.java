@@ -4,7 +4,6 @@ import br.com.cardapio.Entities.Food;
 import br.com.cardapio.DTOs.response.FoodResponseDTO;
 import br.com.cardapio.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +28,9 @@ public class FoodController {
     //metodo para retornar uma comida por id
     @GetMapping(value = "/{id}")
     public ResponseEntity<Optional<Food>> getFoodById(@PathVariable Long id){
+        if(service.getFoodById(id).isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok().body(service.getFoodById(id));
     }
 
@@ -41,8 +43,12 @@ public class FoodController {
 
     //metodo para deletar uma comida
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Boolean> deleteFood(@PathVariable Long id){
-        return ResponseEntity.ok().body(service.deleteFoodById(id));
+    public ResponseEntity<Optional<String>> deleteFood(@PathVariable Long id) {
+        if(service.deleteFoodById(id).isEmpty()){
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok().body(service.deleteFoodById(id));
+        }
     }
 
     //metodo para editar uma comida

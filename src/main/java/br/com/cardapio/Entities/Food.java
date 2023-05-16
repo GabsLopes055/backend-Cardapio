@@ -26,6 +26,7 @@ public class Food {
 
     private Double price;
 
+
     @ManyToOne
     @JsonBackReference
     private Category cdCategory;

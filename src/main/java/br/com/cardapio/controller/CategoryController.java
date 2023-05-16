@@ -25,8 +25,12 @@ public class CategoryController {
         return new ResponseEntity<>(service.listAllCategory(), HttpStatus.OK);
     }
 
+    //metodo para buscar categoria pelo id
     @GetMapping(value = "/{cdCategory}")
     public ResponseEntity<Optional<CategoryResponseDTO>> findCategoryById(@PathVariable Long cdCategory){
+        if(service.listCategoryById(cdCategory).isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok().body(service.listCategoryById(cdCategory));
     }
 
@@ -35,6 +39,26 @@ public class CategoryController {
     public ResponseEntity<CategoryResponseDTO> createNewCategory(@RequestBody CategoryRequestDTO save){
         Category category = service.createNewCategory(save);
         return new ResponseEntity(category, HttpStatus.CREATED);
+    }
+
+    //metodo para editar uma categoria
+    @PutMapping(value = "{id}")
+    public ResponseEntity<Optional<Category>> updateCategoryById(@PathVariable Long id, @RequestBody CategoryRequestDTO category){
+        if(service.updateCategoryById(id, category).isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(service.updateCategoryById(id, category));
+    }
+
+    //metodo para excluir uma categoria
+    @DeleteMapping(value = "{id}")
+    public ResponseEntity<Optional<String>> deleteCategoryById(@PathVariable Long id){
+        if(service.deleteCategoryById(id).isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().body(service.deleteCategoryById(id));
+
     }
 
 
