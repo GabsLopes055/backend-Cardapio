@@ -21,6 +21,7 @@ public class CategoryController {
 
     //metodo para buscar todas as categorias
     @GetMapping
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<List<CategoryResponseDTO>> listAllCategory(){
         return new ResponseEntity<>(service.listAllCategory(), HttpStatus.OK);
     }
@@ -36,6 +37,7 @@ public class CategoryController {
 
     //metodo para salvar uma nova categoria
     @PostMapping
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<CategoryResponseDTO> createNewCategory(@RequestBody CategoryRequestDTO save){
         Category category = service.createNewCategory(save);
         return new ResponseEntity(category, HttpStatus.CREATED);
@@ -43,6 +45,7 @@ public class CategoryController {
 
     //metodo para editar uma categoria
     @PutMapping(value = "{id}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<Optional<Category>> updateCategoryById(@PathVariable Long id, @RequestBody CategoryRequestDTO category){
         if(service.updateCategoryById(id, category).isEmpty()){
             return ResponseEntity.notFound().build();
@@ -52,6 +55,7 @@ public class CategoryController {
 
     //metodo para excluir uma categoria
     @DeleteMapping(value = "{id}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<Optional<String>> deleteCategoryById(@PathVariable Long id){
         if(service.deleteCategoryById(id).isEmpty()){
             return ResponseEntity.notFound().build();
