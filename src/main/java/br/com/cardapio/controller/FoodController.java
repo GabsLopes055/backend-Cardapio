@@ -43,6 +43,7 @@ public class FoodController {
 
     //metodo para deletar uma comida
     @DeleteMapping(value = "/{id}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<Optional<String>> deleteFood(@PathVariable Long id) {
         if(service.deleteFoodById(id).isEmpty()){
             return ResponseEntity.notFound().build();
@@ -53,6 +54,7 @@ public class FoodController {
 
     //metodo para editar uma comida
     @PutMapping(value = "/{FoodId}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<Food> updateFood(@PathVariable Long FoodId, @RequestBody FoodResponseDTO data) {
         return ResponseEntity.ok().body(service.updateFood(FoodId, data));
     }
