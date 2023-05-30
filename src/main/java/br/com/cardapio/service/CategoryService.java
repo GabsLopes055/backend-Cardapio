@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Service
 public class CategoryService {
 
-    @Autowired
+    @Autowired(required = false)
     private CategoryRepository repository;
 
     //metodo para listar todas as categorias
