@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class FoodService {
 
-    @Autowired
+    @Autowired(required = false)
     private FoodRepository repository;
 
     //metodo para retornar todas as comidas
