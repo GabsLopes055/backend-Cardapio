@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 @SpringBootApplication
 @EntityScan(basePackages = "br.com.cardapio.Entities")
-@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
 public class CardapioApplication {
 
 	public static void main(String[] args) {
